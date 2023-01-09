@@ -4,15 +4,24 @@
   "description": "Ma première api",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon index.js",
-    "test": "jest"
+    "serve": "nodemon server.js",
+    "test": "jest test.js --coverage"
   },
   "keywords": [
     "EPSI"
   ],
+  "type": "module",
   "author": "FCClown",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.20.11",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.2"
   }
 }
