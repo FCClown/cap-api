@@ -10,7 +10,7 @@ app.get("/", function (req, res) {
 
 app.get("/api/contacts", controller.getContacts);
 
-app.get("/api/contacts:id", controller.getContact);
+app.get("/api/contacts/:id", controller.getContact);
 
 /*app.get("/api/contacts/update", function (req, res) {
   const id = req.params.id;

@@ -6,7 +6,7 @@ function getContacts(req, res) {
 
 function getContact(req, res) {
   const id = req.params.id;
-  res.status(200).json({ id });
+  res.status(200).json(find(contacts.find({ id })));
 }
 
 export { getContact, getContacts };
