@@ -1,25 +1,26 @@
 //const express = require("express");
 import express from "express";
-const app = express();
+import * as controller from "./controller.js";
 
-const contacts = [
-  {
-    nom: "Xavier",
-    telephone: "0505050505"
-  },
-  {
-    nom: "Robert",
-    telephone: "0606060606"
-  }
-];
+const app = express();
 
 app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
-app.get("/api/contacts", function (req, res) {
-  res.status(200).json(contacts);
+app.get("/api/contacts", controller.getContacts);
+
+app.get("/api/contacts:id", controller.getContact);
+
+/*app.get("/api/contacts/update", function (req, res) {
+  const id = req.params.id;
+  res.status(200).json(id);
 });
+
+app.get("/api/contacts/delete", function (req, res) {
+  const id = req.params.id;
+  res.status(200).json(id);
+});*/
 
 //module.exports = app;
 //export app;
