@@ -1,8 +1,10 @@
 //const express = require("express");
+import bodyParser from "body-parser";
 import express from "express";
 import * as controller from "./controller.js";
 
 const app = express();
+app.use(bodyParser.json());
 
 app.get("/", function (req, res) {
   res.send("Hello World");
@@ -12,15 +14,9 @@ app.get("/api/contacts", controller.getContacts);
 
 app.get("/api/contacts/:id", controller.getContact);
 
-/*app.get("/api/contacts/update", function (req, res) {
-  const id = req.params.id;
-  res.status(200).json(id);
-});
+app.post("/api/contacts/new", controller.addContact);
 
-app.get("/api/contacts/delete", function (req, res) {
-  const id = req.params.id;
-  res.status(200).json(id);
-});*/
+app.delete("/api/contacts/delete", controller.deleteContact);
 
 //module.exports = app;
 //export app;

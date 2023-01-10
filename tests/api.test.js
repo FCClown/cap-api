@@ -48,4 +48,21 @@ describe("test the /api/contacts/:id path", () => {
         expect(response.body[0].id).toBe("1");
       });
   });
+  describe("test the /api/contacts/new path", () => {
+    test("should return code status 200", () => {
+      request(app)
+        .post("/api/contacts/new")
+        .then((response) => {
+          expect(response.statusCode).toBe(200);
+        });
+    });
+    test("should return nom key in response", () => {
+      request(app)
+        .post("/api/contacts/new")
+        .send({ nom: "patrick" })
+        .then((response) => {
+          expect(response.body[0].nom).toBe("patrick");
+        });
+    });
+  });
 });
