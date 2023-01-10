@@ -16,7 +16,7 @@ app.get("/api/contacts/:id", controller.getContact);
 
 app.post("/api/contacts/new", controller.addContact);
 
-app.delete("/api/contacts/delete", controller.deleteContact);
+app.delete("/api/contacts/:id", controller.deleteContact);
 
 //module.exports = app;
 //export app;

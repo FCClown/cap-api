@@ -36,14 +36,14 @@ describe("test the /api/contacts path", () => {
 describe("test the /api/contacts/:id path", () => {
   test("should return code status 200", () => {
     request(app)
-      .get("/api/contacts/:id")
+      .get("/api/contacts/1")
       .then((response) => {
         expect(response.statusCode).toBe(200);
       });
   });
   test("should return id key in response", () => {
     request(app)
-      .get("/api/contacts/:id")
+      .get("/api/contacts/1")
       .then((response) => {
         expect(response.body[0].id).toBe("1");
       });
