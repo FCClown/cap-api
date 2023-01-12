@@ -1,24 +1,22 @@
-//const express = require("express");
-import bodyParser from "body-parser";
 import express from "express";
 import * as controller from "./controller.js";
+import bodyParser from "body-parser";
 
 const app = express();
 app.use(bodyParser.json());
 
 app.get("/", function (req, res) {
-  res.send("Hello World");
+  res.send("hello");
 });
 
 app.get("/api/contacts", controller.getContacts);
 
 app.get("/api/contacts/:id", controller.getContact);
 
-app.post("/api/contacts/new", controller.addContact);
+app.post("/api/contacts", controller.addContact);
 
-app.delete("/api/contacts/:id", controller.deleteContact);
+app.put("/api/contacts/:id", controller.updateContact);
 
-//module.exports = app;
-//export app;
-// ou
+app.delete("/api/contacts/:id", controller.deletedContact);
+
 export default app;

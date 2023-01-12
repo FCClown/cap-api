@@ -1,68 +1,57 @@
 import request from "supertest";
 import app from "../app.js";
 
-describe("test the root path", () => {
-  test("it should respond to the GET method", () => {
+describe("Test the root path", () => {
+  test("It should respond to the GET method", () => {
     request(app)
       .get("/")
       .then((response) => {
         expect(response.statusCode).toBe(200);
       });
   });
-  test("it should respond with 404 to GET /coucou", () => {
-    request(app)
-      .get("/coucou")
-      .then((response) => {
-        expect(response.statusCode).toBe(404);
-      });
-  });
 });
-describe("test the /api/contacts path", () => {
-  test("should return code status 200", () => {
-    request(app)
-      .get("/api/contacts")
-      .then((response) => {
-        expect(response.statusCode).toBe(200);
-      });
+
+describe("Contacts API", () => {
+  let contacts;
+
+  beforeEach(() => {
+    contacts = [
+      { id: "1", nom: "Xavier", telephone: "0505050505" },
+      { id: "2", nom: "Robert", telephone: "0504030201" },
+      { id: "3", nom: "Bertrand", telephone: "0505040302" },
+      { id: "4", nom: "Gerard", telephone: "0606060606" }
+    ];
   });
-  test("should return nom key in response", () => {
-    request(app)
-      .get("/api/contacts")
-      .then((response) => {
-        expect(response.body[0].nom).toBe("Xavier");
-      });
+
+  test("GET /contacts", async () => {
+    const response = await request(app).get("/api/contacts");
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toBe(contacts);
   });
-});
-describe("test the /api/contacts/:id path", () => {
-  test("should return code status 200", () => {
-    request(app)
-      .get("/api/contacts/1")
-      .then((response) => {
-        expect(response.statusCode).toBe(200);
-      });
+
+  test("POST /contacts", async () => {
+    const newContact = { nom: "Brontosaure", telephone: "02I5902582" };
+    const response = await request(app).post("/api/contacts").send(newContact);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(newContact);
   });
-  test("should return id key in response", () => {
-    request(app)
-      .get("/api/contacts/1")
-      .then((response) => {
-        expect(response.body[0].id).toBe("1");
-      });
+
+  test("PUT /contacts/:id", async () => {
+    const updateContact = {
+      id: "5",
+      nom: "Jean",
+      telephone: "0505050607"
+    };
+    const response = await request(app)
+      .put("/api/contacts/1")
+      .send(updateContact);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual(updateContact);
   });
-  describe("test the /api/contacts/new path", () => {
-    test("should return code status 200", () => {
-      request(app)
-        .post("/api/contacts/new")
-        .then((response) => {
-          expect(response.statusCode).toBe(200);
-        });
-    });
-    test("should return nom key in response", () => {
-      request(app)
-        .post("/api/contacts/new")
-        .send({ nom: "patrick" })
-        .then((response) => {
-          expect(response.body[0].nom).toBe("patrick");
-        });
-    });
+
+  test("DELETE /contacts/:id", async () => {
+    const response = await request(app).delete("/contacts/1");
+    expect(response.statusCode).toBe(404);
+    expect(response.body).toEqual({});
   });
 });
